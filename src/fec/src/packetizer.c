@@ -154,7 +154,7 @@ packetizer packetizer_create(unsigned int _n,
 
         // set interleaver depth to zero if no error correction scheme
         // is applied to this plan
-        if (p->plan[i].fs == LIQUID_FEC_NONE)
+        if ((p->plan[i].fs == LIQUID_FEC_NONE) || (p->plan[i].fs == LIQUID_FEC_RS_M8))
             interleaver_set_depth(p->plan[i].q, 0);
 
         // update length
