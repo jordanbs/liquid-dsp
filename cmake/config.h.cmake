@@ -6,3 +6,5 @@
 #cmakedefine HAVE_LIBC
 #cmakedefine SIZEOF_INT @SIZEOF_INT@
 #cmakedefine01 fftw3f_FOUND
+#cmakedefine HAVE_FEC_H
+#cmakedefine HAVE_LIBFEC

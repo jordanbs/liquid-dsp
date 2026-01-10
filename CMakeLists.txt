@@ -60,6 +60,17 @@ if (FIND_FFTW)
     find_package(fftw3f)
 endif()
 
+
+# Optional libfec support (extra FEC codecs)
+option(ENABLE_LIBFEC "Enable libfec support (if present)" ON)
+if (ENABLE_LIBFEC)
+    find_library(FEC_LIBRARY fec)
+    check_include_file(fec.h HAVE_FEC_H)
+    if (FEC_LIBRARY AND HAVE_FEC_H)
+        set(HAVE_LIBFEC 1)
+    endif()
+endif()
+
 # global flags
 if (MSVC)
     # warning level 4
@@ -439,6 +450,14 @@ endif(COVERAGE)
 target_link_libraries(${LIBNAME} c m)
 if (fftw3f_FOUND)
     target_link_libraries(${LIBNAME} fftw3f)
+endif()
+
+if (FEC_LIBRARY AND HAVE_FEC_H)
+    target_link_libraries(${LIBNAME} ${FEC_LIBRARY})
+    # If the project defines a static target, propagate the dependency too
+    if (TARGET ${LIBNAME}-static)
+        target_link_libraries(${LIBNAME}-static ${FEC_LIBRARY})
+    endif()
 endif()
 
 if(BUILD_SHARED_LIBS)
