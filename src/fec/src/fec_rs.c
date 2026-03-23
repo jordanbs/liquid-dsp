@@ -49,6 +49,7 @@ fec fec_rs_create(fec_scheme _fs)
 
     switch (q->scheme) {
     case LIQUID_FEC_RS_M8: fec_rs_init_p8(q); break;
+	case LIQUID_FEC_RS_M8_50: fec_rs_init_p8_50(q); break;
     default: return liquid_error_config("fec_rs_create(), invalid type");
     }
 
@@ -283,6 +284,17 @@ int fec_rs_init_p8(fec _q)
     _q->nroots = 32;
     return LIQUID_OK;
 }
+
+int fec_rs_init_p8_50(fec _q)
+{
+    _q->symsize = 8;
+    _q->genpoly = 0x11d;
+    _q->fcs = 1;
+    _q->prim = 1;
+    _q->nroots = 128;   // 128 parity symbols → RS(255,127), rate ≈ 0.498
+    return LIQUID_OK;
+}
+
 
 #else   // LIBFEC_ENABLED
 

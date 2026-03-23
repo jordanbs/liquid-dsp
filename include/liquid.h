@@ -1275,7 +1275,7 @@ unsigned int crc_sizeof_key(crc_scheme _scheme);
 
 
 // available FEC schemes
-#define LIQUID_FEC_NUM_SCHEMES  28
+#define LIQUID_FEC_NUM_SCHEMES  29
 typedef enum {
     LIQUID_FEC_UNKNOWN=0,       // unknown/unsupported scheme
     LIQUID_FEC_NONE,            // no error-correction
@@ -1312,7 +1312,8 @@ typedef enum {
     LIQUID_FEC_CONV_V29P78,     // r7/8, K=9, dfree=4
 
     // Reed-Solomon codes
-    LIQUID_FEC_RS_M8            // m=8, n=255, k=223
+    LIQUID_FEC_RS_M8,            // m=8, n=255, k=223
+    LIQUID_FEC_RS_M8_50,         // m=8, n=255, k=127 (~50% redundancy)
 } fec_scheme;
 
 // pretty names for fec schemes
